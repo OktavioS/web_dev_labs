@@ -1,0 +1,14 @@
+.hero {
+    background-image: url(../images/hero_image.svg);
+    background-repeat: no-repeat;
+    background-position: right top;
+    background: url(../images/hero_image.svg) no-repeat right -455px top 258px;
+}
+
+.hero__inner {
+    width: 540px;
+    padding-bottom: 120px;
+    padding-top: 120px;
+}
+
+

@@ -1,0 +1,12 @@
+.info {
+    background-image: url(../images/info_image.svg);
+    background-repeat: no-repeat;
+    background-position: right top;
+    background: url(../images/info_image.svg) no-repeat right 165px top 187px;
+}
+
+.info__inner {
+    width: 540px;
+    padding-top: 180px;
+    padding-bottom: 70px;
+}
