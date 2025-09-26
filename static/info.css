@@ -1,12 +1,70 @@
 .info {
-    background-image: url(../images/info_image.svg);
-    background-repeat: no-repeat;
-    background-position: right top;
-    background: url(../images/info_image.svg) no-repeat right 165px top 187px;
+    /* background-image: url(../images/info_image.svg); */
+    /* background-repeat: no-repeat; */
+    /* background-position: right top; */
+    /* background: url(../images/info_image.svg) no-repeat right 165px top 187px; */
+    min-height: 953px;
+    overflow: hidden;
+}
+
+.info>.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+}
+
+@media screen and (max-width: 768px) {
+    .info {
+        margin-top: -125px;
+    }
+
+    .info>.container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
+.info__container {
+    position: relative;
 }
 
 .info__inner {
     width: 540px;
-    padding-top: 180px;
+    padding-top: 0px;
     padding-bottom: 70px;
+}
+
+@media screen and (max-width: 768px) {
+    .info__inner {
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
+
+.info__illustration {
+    position: absolute;
+    overflow: hidden;
+    top: -5%;
+    right: -75px;
+    z-index: 2;
+
+    /*    Просто позначаємо  межі зображення*/
+    /* border: 2;  */
+    /* border-color: red; */
+    /* border-style: dashed; */
+}
+
+.info__illustration>img {
+    max-width: 100%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .info__container {
+        padding-top: 10px;
+    }
 }

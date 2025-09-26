@@ -23,7 +23,10 @@
         <div class="container">
             <header class="header">
                 <div class="header__title">Landie</div>
-                <nav class="header__nav">
+                <div class="header__menu" onclick="toggleMenu()">
+                    <img src="../images/menu_icon.svg" alt="Menu icon">
+                </div>
+                <nav id="nav-links" class="header__nav">
                     <ul>
                         <li class="header__nav-item"><a href="">Home</a></li>
                         <li class="header__nav-item"><a href="">About</a></li>
@@ -36,7 +39,7 @@
         </div>
 
 
-        <div class="container">
+        <div class="container hero__container">
             <div class="hero__inner">
                 <h1 class="title">Introduce Your Product Quickly & Effectively</h1>
                 <p class="paragraph1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
@@ -67,12 +70,15 @@
                     </div>
                 </div>
             </div>
+            <div class="hero__illustration">
+                <img src="../images/hero_image.svg" alt="Hero image" />
+            </div>
         </div>
     </section>
 
 
     <section class="info">
-        <div class="container">
+        <div class="container info__container">
             <div class="info__inner">
                 <h1 class="title">Light, Fast & Powerful</h1>
                 <p class="paragraph1">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
@@ -104,6 +110,9 @@
                         eget dolor. </p>
                 </div>
             </div>
+            <div class="info__illustration">
+                <img src="../images/info_image.svg" alt="Hero image" />
+            </div>
         </div>
     </section>
 
@@ -118,7 +127,9 @@
                     eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
                     ridiculus </p>
             </div>
+        </div>
 
+        <div class="container">
             <div class="packages">
                 <div class="package">
                     <h1 class="price_titles">FREE</h1>
@@ -156,7 +167,9 @@
                 <p class="copy_mark">©2020 LPNU</p>
                 <div class="footer_title">Landie</div>
             </footer>
-            <footer><hr class='line'></footer>
+            <footer>
+                <hr class='line'>
+            </footer>
             <footer>
                 <button class="iot_but">IoT edition</button>
             </footer>
@@ -180,6 +193,16 @@
             </div>
         </footer>
     </section>
+
+    <script>
+        const OPEN_CLASSNAME = "open";
+
+        const navLinks = document.getElementById("nav-links");
+
+        function toggleMenu() {
+            navLinks.classList.toggle(OPEN_CLASSNAME);
+        }
+    </script>
 </body>
 
 </html>

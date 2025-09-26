@@ -4,6 +4,20 @@ header {
     align-items: center;
 }
 
+.header__menu {
+    display: none;
+    width: 32px;
+    cursor: pointer;
+}
+
+.header__menu>img {
+    max-width: 100%;
+}
+
+.header__menu-icon {
+    width: 40px;
+}
+
 .header__nav ul {
     display: flex;
 }
@@ -52,4 +66,63 @@ header {
     padding-bottom: 4px;
     border: 0;
     border-radius: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        top: 0;
+        padding: 20px;
+        background-color: white;
+        z-index: 10;
+    }
+
+    .header__menu {
+        display: block;
+    }
+
+    .header__buy_now {
+        display: none;
+    }
+
+    .header__learn_more {
+        display: none;
+    }
+
+    .header__nav {
+        background: #e7ecff;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: 0;
+        clip-path: circle(0 at top right);
+        transition: clip-path 0.45s ease-in;
+    }
+
+    .header__nav.open {
+        clip-path: circle(1000px at top);
+    }
+
+    .header__nav ul {
+        flex-direction: column;
+        right: 0;
+        height: 100%;
+    }
+
+    .header__nav.header__nav-item {
+        margin-right: 0;
+        padding-top: 10vh;
+        flex: 1;
+    }
+
+    .header__nav a {
+        font-weight: 350;
+        display: block;
+        font-size: 32px;
+        text-align: center;
+    }
 }
