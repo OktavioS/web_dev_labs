@@ -140,3 +140,10 @@ li {
     align-items: flex-start;
     gap: 35px;
 }
+
+@media screen and (max-width: 768px) {
+    .features {
+        margin: 0 auto;
+        text-align: center;
+    }
+}
