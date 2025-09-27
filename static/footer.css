@@ -55,24 +55,39 @@ footer {
     color: #ffffff;
     padding-top: 4px;
     padding-bottom: 4px;
-    border: 0;
+    border: 1px solid #111B47;
     border-radius: 2px;
     margin: 0 auto;
+    transition: transform 0.2s ease-out;
+}
+
+.iot_but:hover {
+    transform: scale(1.05);
+}
+
+.iot_but:active {
+    transform: scale(0.98);
+    background-color: #004085;
 }
 
 .footer__nav {
     margin: 0 auto;
 }
 
+
 .footer__nav ul {
     display: flex;
 }
 
-.footer__nav-item {
+.footer__nav-item a {
     margin-right: 40px;
     font-size: 19px;
+    transition: color 0.3s;
 }
 
+.footer__nav-item a:hover {
+    color: #004085;
+}
 
 /*Іконки*/
 .footer-socials {

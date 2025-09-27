@@ -27,6 +27,14 @@ header {
     font-size: 19px;
 }
 
+.header__nav-item a {
+    transition: color 0.2s;
+}
+
+.header__nav-item a:hover {
+    color: #004085;
+}
+
 .header__title {
     font-weight: 900;
     font-size: 26px;
@@ -46,8 +54,10 @@ header {
     color: white;
     padding-top: 4px;
     padding-bottom: 4px;
-    border: 0;
+    border: 1px solid #111B47;
     border-radius: 2px;
+    transition: border-color 0.3s ease-in-out, border-width 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s,
+        transform 0.2s ease-out;
 }
 
 .header__buy_now {
@@ -66,6 +76,25 @@ header {
     padding-bottom: 4px;
     border: 0;
     border-radius: 2px;
+    transition: transform 0.2s ease-out;
+}
+
+.header__learn_more:hover {
+    border-color: #111B47;
+    border-width: 1px;
+    background-color: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+.header__buy_now:hover {
+    transform: scale(1.05);
+}
+
+.header__learn_more:active,
+.header__buy_now:active {
+    transform: scale(0.98);
+    background-color: #004085;
 }
 
 @media screen and (max-width: 768px) {

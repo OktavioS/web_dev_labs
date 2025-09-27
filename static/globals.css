@@ -55,9 +55,24 @@ li {
     color: #ffffff;
     padding-top: 4px;
     padding-bottom: 4px;
-    border: 0;
+    border: 1px solid #111B47;
     border-radius: 2px;
     margin-bottom: 125px;
+    transition: border-color 0.3s ease-in-out, border-width 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s,
+        transform 0.2s ease-out;
+}
+
+.default_button:hover {
+    border-color: #111B47;
+    border-width: 1px;
+    background-color: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+.default_button:active {
+    transform: scale(0.98);
+    background-color: #004085;
 }
 
 @media screen and (max-width: 768px) {
@@ -125,4 +140,3 @@ li {
     align-items: flex-start;
     gap: 35px;
 }
-
