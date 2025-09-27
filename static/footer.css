@@ -114,6 +114,8 @@ footer {
     .iot_but {
         margin: 0 auto;
         align-items: center;
+        height: 30px;
+        font-size: 14px;
     }
 
     .footer__nav {

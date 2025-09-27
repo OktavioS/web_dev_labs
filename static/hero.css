@@ -19,7 +19,7 @@
 
 @media screen and (max-width: 768px) {
     .hero {
-        min-height: 105vh;
+        min-height: vh;
     }
 
     .hero__inner {
