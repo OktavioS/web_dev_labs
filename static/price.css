@@ -1,3 +1,10 @@
+.price>.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+}
+
 .price__inner {
     width: 540px;
     padding-top: 125px;
@@ -8,6 +15,8 @@
     width: 760px;
 }
 
+
+/*Options of packages*/
 .packages {
     display: flex;
     align-items: flex-start;
@@ -39,4 +48,50 @@
     line-height: 26px;
     letter-spacing: 0px;
     color: #6F7CB2;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .price {
+        min-height: 950px;
+        margin-top: 85px;
+        margin-bottom: 55px;
+    }
+
+    .price>.container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .price__inner {
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    .title_paragraph {
+        max-width: 85%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+
+    /*Options of packages*/
+    .packages {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 35px;
+        gap: 0;
+    }
+
+
+    .price_paragraph {
+        flex-direction: column;
+        margin: 0 auto;
+        align-items: center;
+        max-width: 85%;
+    }
 }

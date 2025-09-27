@@ -3,7 +3,7 @@
     /* background-repeat: no-repeat; */
     /* background-position: right top; */
     /* background: url(../images/hero_image.svg) no-repeat right -455px top 258px; */
-    min-height: 953px;
+    min-height: 95vh;
     overflow: hidden;
 }
 
@@ -18,6 +18,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .hero {
+        min-height: 105vh;
+    }
+
     .hero__inner {
         margin: 0 auto;
         text-align: center;
