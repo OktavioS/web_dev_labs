@@ -97,3 +97,41 @@
         font-size: 12px;
     }
 }
+
+
+
+
+
+@media screen and (min-width: 1930px) and (max-width: 2560px) {
+    .price__inner {
+        max-width: 1600px;
+        margin: left;
+    }
+
+    .price_titles {
+        font-size: 48px;
+    }
+
+    .title_paragraph {
+        font-size: 20px;
+    }
+
+    .price_inner_title {
+        font-size: 26px;
+    }
+
+    .price_paragraph {
+        font-size: 18px;
+    }
+
+    .packages {
+        margin: 0 auto;
+        gap: 48px;
+    }
+
+    .default_button {
+        width: 280px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

@@ -98,6 +98,7 @@ li {
     font-size: 14px;
     color: #091133;
     margin-bottom: 1px;
+    
 }
 
 .paragraph1 {
@@ -139,15 +140,18 @@ li {
 
 .features {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: center;
+    align-items: right;
     gap: 35px;
+
 }
 
 @media screen and (max-width: 768px) {
     .features {
         margin: 0 auto;
         text-align: center;
+        display: flex;
+        flex-direction: column;
     }
 
     .title {
@@ -167,5 +171,37 @@ li {
         align-items: center;
         margin: 0 auto;
         max-width: 85%;
+    }
+}
+
+
+
+
+@media screen and (min-width: 1930px) and (max-width: 2560px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .title {
+        font-size: 48px;
+        line-height: 60px;
+    }
+
+    .inner_title {
+        font-size: 20px;
+    }
+
+    .paragraph1 {
+        font-size: 20px;
+    }
+
+    .paragraph2 {
+        font-size: 18px;
+    }
+
+    .default_button {
+        width: 280px;
+        height: 40px;
+        font-size: 16px;
     }
 }

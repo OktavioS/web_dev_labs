@@ -145,3 +145,39 @@ footer {
         margin: 0 auto;
     }
 }
+
+
+
+
+
+
+@media screen and (min-width: 1930px) and (max-width: 2560px) {
+    footer {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .copy_mark {
+        font-size: 20px;
+    }
+
+    .footer_title {
+        font-size: 32px;
+    }
+
+    .footer__nav-item a {
+        font-size: 22px;
+        margin-right: 60px;
+    }
+
+    .footer-socials a {
+        font-size: 24px;
+        margin: 0 20px;
+    }
+
+    .iot_but {
+        width: 160px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

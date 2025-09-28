@@ -156,3 +156,28 @@ header {
         text-align: center;
     }
 }
+
+
+
+@media screen and (min-width: 1930px) and (max-width: 2560px) {
+    header {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .header__title {
+        font-size: 32px;
+    }
+
+    .header__nav-item {
+        font-size: 22px;
+        margin-right: 80px;
+    }
+
+    .header__learn_more,
+    .header__buy_now {
+        width: 140px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
