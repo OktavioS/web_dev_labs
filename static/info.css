@@ -1,8 +1,4 @@
 .info {
-    /* background-image: url(../images/info_image.svg); */
-    /* background-repeat: no-repeat; */
-    /* background-position: right top; */
-    /* background: url(../images/info_image.svg) no-repeat right 165px top 187px; */
     min-height: 650px;
     overflow: hidden;
 }
@@ -55,9 +51,9 @@
     z-index: 2;
 
     /*    Просто позначаємо  межі зображення*/
-    /* border: 2;  */
-    /* border-color: red; */
-    /* border-style: dashed; */
+    /* border: 2; 
+    border-color: red;
+    border-style: dashed; */
 }
 
 .info__illustration>img {

@@ -10,6 +10,7 @@ footer {
 @media screen and (max-width: 768px) {
     .footer {
         min-height: 950px;
+        width: fit-content;
     }
 }
 
@@ -111,11 +112,20 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+    .copy_mark {
+        font-size: 10px;
+    }
+
+    .footer_title {
+        font-size: 16px;
+    }
+
     .iot_but {
         margin: 0 auto;
         align-items: center;
         height: 30px;
-        font-size: 14px;
+        width: 80px;
+        font-size: 12px;
     }
 
     .footer__nav {
@@ -125,6 +135,10 @@ footer {
 
     .footer__nav-item {
         margin-right: 40px;
+    }
+
+    .footer__nav-item a {
+        font-size: 12px;
     }
 
     .footer-socials {

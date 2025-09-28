@@ -151,7 +151,8 @@ header {
     .header__nav a {
         font-weight: 350;
         display: block;
-        font-size: 32px;
+        margin-top: 32px;
+        font-size: 27px;
         text-align: center;
     }
 }

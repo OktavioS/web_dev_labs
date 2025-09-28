@@ -37,6 +37,7 @@ li {
 @media screen and (max-width: 768px) {
     .container {
         padding: 0px;
+        text-align: justify;
     }
 }
 
@@ -94,7 +95,7 @@ li {
 
 .inner_title {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     color: #091133;
     margin-bottom: 1px;
 }
@@ -122,7 +123,6 @@ li {
     gap: 12px;
     max-width: 250px;
     width: 700px;
-    padding-left: 10px;
     flex: 1;
 }
 
@@ -139,7 +139,8 @@ li {
 
 .features {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     gap: 35px;
 }
 
@@ -147,5 +148,24 @@ li {
     .features {
         margin: 0 auto;
         text-align: center;
+    }
+
+    .title {
+        font-size: 23px;
+    }
+
+    .paragraph1 {
+        flex-direction: column;
+        margin: 0 auto;
+        text-align: justify;
+        max-width: 65%;
+        font-size: 13px;
+    }
+
+    .paragraph2 {
+        font-size: 10;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 85%;
     }
 }

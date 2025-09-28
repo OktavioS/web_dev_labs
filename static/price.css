@@ -72,9 +72,10 @@
     }
 
     .title_paragraph {
-        max-width: 85%;
+        max-width: 65%;
         margin: 0 auto;
-        text-align: center;
+        text-align: justify;
+        font-size: 13px;
     }
 
 
@@ -92,6 +93,7 @@
         flex-direction: column;
         margin: 0 auto;
         align-items: center;
-        max-width: 85%;
+        max-width: 65%;
+        font-size: 12px;
     }
 }
