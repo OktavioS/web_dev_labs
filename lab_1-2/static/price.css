@@ -58,9 +58,11 @@
         min-height: 950px;
         margin-top: 85px;
         margin-bottom: 55px;
+        align-items: center;
     }
 
     .price>.container {
+        width: 550px;
         flex-direction: column;
         text-align: center;
         align-items: center;

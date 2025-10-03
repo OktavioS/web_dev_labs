@@ -1,6 +1,6 @@
 .hero {
     min-height: 45vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .hero__container {

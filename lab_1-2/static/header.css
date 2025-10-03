@@ -110,6 +110,7 @@ header {
 
     .header__menu {
         display: block;
+        margin-right: 30px;
     }
 
     .header__buy_now {
@@ -124,10 +125,9 @@ header {
         background: #e7ecff;
         position: fixed;
         top: 72px;
-        left: 0;
-        right: 0;
+        right: 10%;
+        height: 260px;
         bottom: 0;
-        margin-top: 0;
         clip-path: circle(0 at top right);
         transition: clip-path 0.45s ease-in;
     }
