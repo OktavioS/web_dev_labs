@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shoes</title>
-
-    <link rel="stylesheet" href="./styles.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shoes catalogue</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-    <div class="paragraph">
-        <p>$hoe$</p>
+  <h1>Shoes catalogue</h1>
+
+  <form id="shoeForm">
+    <input type="text" id="brand" placeholder="Brand name" required />
+    <input type="number" id="price" placeholder="Price" required />
+    <input type="number" id="size" placeholder="Size" required />
+    <input type="text" id="color" placeholder="Color" required />
+    <button type="submit">Add</button>
+  </form>
+
+  <div class="container">
+    <div id="shoeList" class="shoe-list"></div>
+
+    <div id="deleteZone" class="delete-zone">
+      Drop here to delete
     </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
