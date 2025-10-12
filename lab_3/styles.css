@@ -1,12 +1,75 @@
-.paragraph {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-weight: 400;
-    font-size: 85px;
-    color: cadetblue;
-    margin-top: -73px;
-    /* border: 2; */
-    /* border-style: dashed; */
-    /* border-color: red; */
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+input,
+button {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.shoe-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex: 1;
+}
+
+.shoe-card {
+  width: 180px;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.shoe-card:hover {
+  transform: scale(1.05);
+}
+
+.shoe-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.delete-zone {
+  width: 200px;
+  height: 250px;
+  background: #ffdddd;
+  border: 2px dashed red;
+  border-radius: 10px;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+  position: sticky;
+  top: 50px;
+}
+
+.delete-zone.dragover {
+  background: #ffaaaa;
+  border-color: darkred;
 }
