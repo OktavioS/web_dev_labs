@@ -11,19 +11,55 @@
 <body>
   <h1>Shoes catalogue</h1>
 
-  <form id="shoeForm">
-    <input type="text" id="brand" placeholder="Brand name" required />
-    <input type="number" id="price" placeholder="Price" required />
-    <input type="number" id="size" placeholder="Size" required />
-    <input type="text" id="color" placeholder="Color" required />
-    <button type="submit">Add</button>
-  </form>
+  <div class="top-bar">
+    <div class="left-buttons">
+      <button id="sortAsc">Sort by price ↑</button>
+      <button id="sortDesc">Sort by price ↓</button>
+      <button id="totalPrice">Show total price</button>
+    </div>
+
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Search by brand or color">
+    </div>
+
+    <div class="right-buttons">
+      <button id="addShoeBtn">Add</button>
+      <button id="editShoeBtn" disabled>Edit</button>
+    </div>
+  </div>
+
+  <div id="total" class="total"></div>
 
   <div class="container">
     <div id="shoeList" class="shoe-list"></div>
 
     <div id="deleteZone" class="delete-zone">
       Drop here to delete
+    </div>
+  </div>
+
+  <!-- Fullscreen Add/Edit Page -->
+  <div id="fullscreen" class="fullscreen">
+    <div class="fullscreen-content">
+      <h2 id="fullscreenTitle">Add Shoe</h2>
+      <form id="fullscreenForm">
+        <input type="text" id="fsBrand" placeholder="Brand name" required />
+        <input type="number" id="fsPrice" placeholder="Price" required />
+        <input type="number" id="fsSize" placeholder="Size" required />
+        <input type="text" id="fsColor" placeholder="Color" required />
+        <button type="submit">Save</button>
+        <button type="button" id="cancelFullscreen">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Fullscreen для показу загальної суми -->
+  <div id="totalFullscreen" class="fullscreen">
+    <div class="fullscreen-content">
+      <h2>Total Price</h2>
+      <p id="totalValue" style="font-size: 24px; text-align:center; margin: 30px 0;"></p>
+      <button id="backTotal">Back</button>
     </div>
   </div>
 
