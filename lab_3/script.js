@@ -15,22 +15,14 @@ const totalOutput = document.getElementById("total");
 const sortAscBtn = document.getElementById("sortAsc");
 const sortDescBtn = document.getElementById("sortDesc");
 const totalPriceBtn = document.getElementById("totalPrice");
-const totalFullscreen = document.getElementById("totalFullscreen");
-const totalValue = document.getElementById("totalValue");
-const backTotal = document.getElementById("backTotal");
 const searchInput = document.getElementById("searchInput");
 
-const fullscreen = document.getElementById("fullscreen");
-const fullscreenForm = document.getElementById("fullscreenForm");
-const fullscreenTitle = document.getElementById("fullscreenTitle");
+const modal = document.getElementById("modal");
+const modalForm = document.getElementById("modalForm");
+const closeModal = document.getElementById("closeModal");
 const addShoeBtn = document.getElementById("addShoeBtn");
 const editShoeBtn = document.getElementById("editShoeBtn");
-const cancelFullscreen = document.getElementById("cancelFullscreen");
-
-const fsBrand = document.getElementById("fsBrand");
-const fsPrice = document.getElementById("fsPrice");
-const fsSize = document.getElementById("fsSize");
-const fsColor = document.getElementById("fsColor");
+const modalTitle = document.getElementById("modalTitle");
 
 let shoes = JSON.parse(localStorage.getItem("shoes")) || [];
 let lastRendered = shoes.slice();
@@ -39,58 +31,59 @@ let editingId = null;
 
 renderShoes();
 
-
+// ------------------ OPEN/CLOSE MODAL ------------------
 addShoeBtn.addEventListener("click", () => {
-    fullscreen.style.display = "flex";
-    fullscreenTitle.textContent = "Add Shoe";
-    fullscreenForm.reset();
+    modal.style.display = "block";
+    modalTitle.textContent = "Add Shoe";
+    modalForm.reset();
     editingId = null;
 });
 
+// ------------------ SELECT & EDIT ------------------
 editShoeBtn.addEventListener("click", () => {
-    if(!selectedId) return;
+    if (!selectedId) return;
+
     const shoe = shoes.find(s => s.id === selectedId);
-    fullscreen.style.display = "flex";
-    fullscreenTitle.textContent = "Edit Shoe";
-    fsBrand.value = shoe.brand;
-    fsPrice.value = shoe.price;
-    fsSize.value = shoe.size;
-    fsColor.value = shoe.color;
+    modal.style.display = "block";
+    modalTitle.textContent = "Edit Shoe";
+    document.getElementById("brand").value = shoe.brand;
+    document.getElementById("price").value = shoe.price;
+    document.getElementById("size").value = shoe.size;
+    document.getElementById("color").value = shoe.color;
     editingId = selectedId;
 });
 
-cancelFullscreen.addEventListener("click", () => {
-    fullscreen.style.display = "none";
-});
-
-
-fullscreenForm.addEventListener("submit", (e) => {
+// ------------------ FORM SUBMIT ------------------
+modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if(editingId){
+
+    const brand = document.getElementById("brand").value;
+    const price = document.getElementById("price").value;
+    const size = document.getElementById("size").value;
+    const color = document.getElementById("color").value;
+
+    if (editingId) {
         const shoe = shoes.find(s => s.id === editingId);
-        shoe.brand = fsBrand.value;
-        shoe.price = parseFloat(fsPrice.value);
-        shoe.size = fsSize.value;
-        shoe.color = fsColor.value;
+        shoe.brand = brand;
+        shoe.price = parseFloat(price);
+        shoe.size = size;
+        shoe.color = color;
     } else {
-        const newShoe = new Shoe(fsBrand.value, fsPrice.value, fsSize.value, fsColor.value);
+        const newShoe = new Shoe(brand, price, size, color);
         shoes.push(newShoe);
     }
 
     selectedId = null;
     editShoeBtn.disabled = true;
-    fullscreen.style.display = "none";
     renderShoes();
     saveToLocalStorage();
+    modal.style.display = "none";
 });
 
 
-window.addEventListener("load", () => {
-    fullscreen.style.display = "none";
-    totalFullscreen.style.display = "none";
-});
 
-function renderShoes(filteredShoes = shoes){
+// ------------------ RENDER SHOES ------------------
+function renderShoes(filteredShoes = shoes) {
     shoeList.innerHTML = "";
     lastRendered = filteredShoes.slice();
 
@@ -107,6 +100,9 @@ function renderShoes(filteredShoes = shoes){
             <p>Колір: ${shoe.color}</p>
         `;
 
+        closeModal.addEventListener("click", () => modal.style.display = "none");
+        window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
         card.addEventListener("click", () => {
             document.querySelectorAll(".shoe-card").forEach(c => c.classList.remove("selected"));
             card.classList.add("selected");
@@ -114,17 +110,27 @@ function renderShoes(filteredShoes = shoes){
             editShoeBtn.disabled = false;
         });
 
+        document.addEventListener("click", e => {
+            if (!e.target.closest(".shoe-card") && !e.target.closest(".edit-btn") && !e.target.closest(".delete-btn")) {
+                document.querySelectorAll(".shoe-card.selected").forEach(card => {
+                    card.classList.remove("selected");
+                });
+            }
+        });
+
         card.addEventListener("dragstart", e => e.dataTransfer.setData("id", shoe.id));
+
         shoeList.appendChild(card);
     });
 }
 
-// DELETE
+// ------------------ DELETE ------------------
 deleteZone.addEventListener("dragover", e => { e.preventDefault(); deleteZone.classList.add("dragover"); });
 deleteZone.addEventListener("dragleave", () => deleteZone.classList.remove("dragover"));
 deleteZone.addEventListener("drop", e => {
     e.preventDefault();
     deleteZone.classList.remove("dragover");
+
     const id = e.dataTransfer.getData("id");
     shoes = shoes.filter(s => s.id != id);
 
@@ -132,32 +138,80 @@ deleteZone.addEventListener("drop", e => {
     editShoeBtn.disabled = true;
 
     const searchValue = (searchInput.value || "").toLowerCase();
-    if(searchValue) {
-        const filteredShoes = shoes.filter(s => s.brand.toLowerCase().includes(searchValue) || s.color.toLowerCase().includes(searchValue));
+    if (searchValue) {
+        const filteredShoes = shoes.filter(
+            s => s.brand.toLowerCase().includes(searchValue) || s.color.toLowerCase().includes(searchValue)
+        );
         renderShoes(filteredShoes);
     } else renderShoes();
 
     saveToLocalStorage();
 });
 
-// SORT / TOTAL / SEARCH
-sortAscBtn.addEventListener("click", () => { shoes.sort((a,b) => a.price - b.price); renderShoes(); });
-sortDescBtn.addEventListener("click", () => { shoes.sort((a,b) => b.price - a.price); renderShoes(); });
+// ------------------ OTHER BUTTONS ------------------
+sortAscBtn.addEventListener("click", () => { shoes.sort((a, b) => a.price - b.price); renderShoes(); });
+sortDescBtn.addEventListener("click", () => { shoes.sort((a, b) => b.price - a.price); renderShoes(); });
+const modalTotal = document.getElementById("modaltotal");
+const totalValue = document.getElementById("totalValue");
+const backTotal = document.getElementById("backTotal");
+
 totalPriceBtn.addEventListener("click", () => {
-    const total = shoes.reduce((sum, shoe) => sum + (isNaN(shoe.price)?0:shoe.price), 0);
-    totalValue.innerText = `Загальна сума: ${total} грн`;
-    totalFullscreen.style.display = "flex";
+    const total = lastRendered.reduce(
+        (sum, shoe) => sum + (isNaN(shoe.price) ? 0 : shoe.price),
+        0
+    );
+    totalValue.textContent = `${total} грн`;
+    modalTotal.style.display = "block";
 });
+
+backTotal.addEventListener("click", () => {
+    modalTotal.style.display = "none";
+});
+
+window.addEventListener("click", e => {
+    if (e.target === modalTotal) modalTotal.style.display = "none";
+});
+
 searchInput.addEventListener("input", e => {
     const searchValue = e.target.value.toLowerCase();
     const filteredShoes = shoes.filter(s => s.brand.toLowerCase().includes(searchValue) || s.color.toLowerCase().includes(searchValue));
     renderShoes(filteredShoes);
 });
 
-backTotal.addEventListener("click", () => {
-    totalFullscreen.style.display = "none";
+
+
+function saveToLocalStorage() {
+    localStorage.setItem("shoes", JSON.stringify(shoes));
+}
+
+// ------------------ MODAL VALIDATION ------------------
+function blockDigits(input) {
+    input.addEventListener("keydown", (e) => {
+        if (/\d/.test(e.key)) {
+            e.preventDefault();
+            alert("У цьому полі не можна вводити цифри!");
+        }
+    });
+}
+
+function blockLetters(input) {
+    input.addEventListener("keydown", (e) => {
+        if (!/[0-9]|Backspace|Delete|ArrowLeft|ArrowRight|Tab|\./.test(e.key)) {
+            e.preventDefault();
+            alert("У цьому полі можна вводити лише числа!");
+        }
+    });
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    const brandInput = document.getElementById("brand");
+    const colorInput = document.getElementById("color");
+    const priceInput = document.getElementById("price");
+    const sizeInput = document.getElementById("size");
+
+    if (brandInput) blockDigits(brandInput);
+    if (colorInput) blockDigits(colorInput);
+    if (priceInput) blockLetters(priceInput);
+    if (sizeInput) blockLetters(sizeInput);
 });
-
-function saveToLocalStorage(){ localStorage.setItem("shoes", JSON.stringify(shoes)); }
-
-
