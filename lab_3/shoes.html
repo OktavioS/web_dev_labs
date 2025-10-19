@@ -28,8 +28,6 @@
     </div>
   </div>
 
-  <div id="total" class="total"></div>
-
   <div class="container">
     <div id="shoeList" class="shoe-list"></div>
 
@@ -38,25 +36,25 @@
     </div>
   </div>
 
-  <!-- Fullscreen Add/Edit Page -->
-  <div id="fullscreen" class="fullscreen">
-    <div class="fullscreen-content">
-      <h2 id="fullscreenTitle">Add Shoe</h2>
-      <form id="fullscreenForm">
-        <input type="text" id="fsBrand" placeholder="Brand name" required />
-        <input type="number" id="fsPrice" placeholder="Price" required />
-        <input type="number" id="fsSize" placeholder="Size" required />
-        <input type="text" id="fsColor" placeholder="Color" required />
+  <!-- Modal Window -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2 id="modalTitle">Add Shoe</h2>
+      <form id="modalForm">
+        <input type="text" id="brand" placeholder="Brand name" required />
+        <input type="number" id="price" placeholder="Price" required />
+        <input type="number" id="size" placeholder="Size" required />
+        <input type="text" id="color" placeholder="Color" required />
         <button type="submit">Save</button>
-        <button type="button" id="cancelFullscreen">Cancel</button>
       </form>
     </div>
   </div>
 
 
-  <!-- Fullscreen для показу загальної суми -->
-  <div id="totalFullscreen" class="fullscreen">
-    <div class="fullscreen-content">
+  <!-- Modal window для показу загальної суми -->
+  <div id="modaltotal" class="modaltotal">
+    <div class="modal-content">
       <h2>Total Price</h2>
       <p id="totalValue" style="font-size: 24px; text-align:center; margin: 30px 0;"></p>
       <button id="backTotal">Back</button>
