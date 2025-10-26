@@ -1,6 +1,8 @@
+// === URL до бекенду ===
+const API_URL = "http://localhost:3000/api/shoes";
+
 class Shoe {
     constructor(brand, price, size, color) {
-        this.id = Date.now();
         this.brand = brand;
         this.price = parseFloat(price) || 0;
         this.size = size;
@@ -11,7 +13,6 @@ class Shoe {
 
 const shoeList = document.getElementById("shoeList");
 const deleteZone = document.getElementById("deleteZone");
-const totalOutput = document.getElementById("total");
 const sortAscBtn = document.getElementById("sortAsc");
 const sortDescBtn = document.getElementById("sortDesc");
 const totalPriceBtn = document.getElementById("totalPrice");
@@ -24,14 +25,55 @@ const addShoeBtn = document.getElementById("addShoeBtn");
 const editShoeBtn = document.getElementById("editShoeBtn");
 const modalTitle = document.getElementById("modalTitle");
 
-let shoes = JSON.parse(localStorage.getItem("shoes")) || [];
-let lastRendered = shoes.slice();
+const modalTotal = document.getElementById("modaltotal");
+const totalValue = document.getElementById("totalValue");
+const backTotal = document.getElementById("backTotal");
+
+let shoes = [];
+let lastRendered = [];
 let selectedId = null;
 let editingId = null;
 
-renderShoes();
+// ------------------ LOAD FROM SERVER ------------------
+async function loadShoes() {
+    const res = await fetch(API_URL);
+    shoes = await res.json();
+    lastRendered = shoes.slice();
+    renderShoes(shoes);
+}
 
-// ------------------ OPEN/CLOSE MODAL ------------------
+loadShoes();
+
+// ------------------ RENDER ------------------
+function renderShoes(filteredShoes = shoes) {
+    shoeList.innerHTML = "";
+    lastRendered = filteredShoes.slice();
+
+    filteredShoes.forEach((shoe) => {
+        const card = document.createElement("div");
+        card.className = "shoe-card";
+        card.draggable = true;
+        card.innerHTML = `
+      <img src="${shoe.image}" alt="Shoe" />
+      <h3>${shoe.brand}</h3>
+      <p>Ціна: ${shoe.price} грн</p>
+      <p>Розмір: ${shoe.size}</p>
+      <p>Колір: ${shoe.color}</p>
+    `;
+
+        card.addEventListener("click", () => {
+            document.querySelectorAll(".shoe-card").forEach((c) => c.classList.remove("selected"));
+            card.classList.add("selected");
+            selectedId = shoe.id;
+            editShoeBtn.disabled = false;
+        });
+
+        card.addEventListener("dragstart", (e) => e.dataTransfer.setData("id", shoe.id));
+        shoeList.appendChild(card);
+    });
+}
+
+// ------------------ ADD ------------------
 addShoeBtn.addEventListener("click", () => {
     modal.style.display = "block";
     modalTitle.textContent = "Add Shoe";
@@ -39,11 +81,15 @@ addShoeBtn.addEventListener("click", () => {
     editingId = null;
 });
 
-// ------------------ SELECT & EDIT ------------------
-editShoeBtn.addEventListener("click", () => {
-    if (!selectedId) return;
+closeModal.addEventListener("click", () => (modal.style.display = "none"));
+window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
-    const shoe = shoes.find(s => s.id === selectedId);
+// ------------------ EDIT ------------------
+editShoeBtn.addEventListener("click", async () => {
+    if (!selectedId) return;
+    const shoe = shoes.find((s) => s.id === selectedId);
+    if (!shoe) return;
+
     modal.style.display = "block";
     modalTitle.textContent = "Edit Shoe";
     document.getElementById("brand").value = shoe.brand;
@@ -53,138 +99,88 @@ editShoeBtn.addEventListener("click", () => {
     editingId = selectedId;
 });
 
-// ------------------ FORM SUBMIT ------------------
-modalForm.addEventListener("submit", (e) => {
+// ------------------ SUBMIT FORM ------------------
+modalForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const brand = document.getElementById("brand").value;
+    const brand = document.getElementById("brand").value.trim();
     const price = document.getElementById("price").value;
     const size = document.getElementById("size").value;
-    const color = document.getElementById("color").value;
+    const color = document.getElementById("color").value.trim();
 
-    if (editingId) {
-        const shoe = shoes.find(s => s.id === editingId);
-        shoe.brand = brand;
-        shoe.price = parseFloat(price);
-        shoe.size = size;
-        shoe.color = color;
-    } else {
-        const newShoe = new Shoe(brand, price, size, color);
-        shoes.push(newShoe);
+    if (!brand || !color) {
+        alert("Назва бренду та колір не можуть бути порожніми або складатись лише з пробілів!");
+        return;
     }
 
-    selectedId = null;
-    editShoeBtn.disabled = true;
-    renderShoes();
-    saveToLocalStorage();
+    const shoeData = new Shoe(brand, price, size, color);
+
+
+    if (editingId) {
+        await fetch(`${API_URL}/${editingId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(shoeData),
+        });
+    } else {
+        await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(shoeData),
+        });
+    }
+
     modal.style.display = "none";
+    editShoeBtn.disabled = true;
+    selectedId = null;
+    await loadShoes();
 });
-
-
-
-// ------------------ RENDER SHOES ------------------
-function renderShoes(filteredShoes = shoes) {
-    shoeList.innerHTML = "";
-    lastRendered = filteredShoes.slice();
-
-    filteredShoes.forEach(shoe => {
-        const card = document.createElement("div");
-        card.className = "shoe-card";
-        card.draggable = true;
-
-        card.innerHTML = `
-            <img src="${shoe.image}" alt="Shoe" />
-            <h3>${shoe.brand}</h3>
-            <p>Ціна: ${shoe.price} грн</p>
-            <p>Розмір: ${shoe.size}</p>
-            <p>Колір: ${shoe.color}</p>
-        `;
-
-        closeModal.addEventListener("click", () => modal.style.display = "none");
-        window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
-
-        card.addEventListener("click", () => {
-            document.querySelectorAll(".shoe-card").forEach(c => c.classList.remove("selected"));
-            card.classList.add("selected");
-            selectedId = shoe.id;
-            editShoeBtn.disabled = false;
-        });
-
-        document.addEventListener("click", e => {
-            if (!e.target.closest(".shoe-card") && !e.target.closest(".edit-btn") && !e.target.closest(".delete-btn")) {
-                document.querySelectorAll(".shoe-card.selected").forEach(card => {
-                    card.classList.remove("selected");
-                });
-            }
-        });
-
-        card.addEventListener("dragstart", e => e.dataTransfer.setData("id", shoe.id));
-
-        shoeList.appendChild(card);
-    });
-}
 
 // ------------------ DELETE ------------------
-deleteZone.addEventListener("dragover", e => { e.preventDefault(); deleteZone.classList.add("dragover"); });
+deleteZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    deleteZone.classList.add("dragover");
+});
 deleteZone.addEventListener("dragleave", () => deleteZone.classList.remove("dragover"));
-deleteZone.addEventListener("drop", e => {
+deleteZone.addEventListener("drop", async (e) => {
     e.preventDefault();
     deleteZone.classList.remove("dragover");
-
     const id = e.dataTransfer.getData("id");
-    shoes = shoes.filter(s => s.id != id);
-
-    selectedId = null;
-    editShoeBtn.disabled = true;
-
-    const searchValue = (searchInput.value || "").toLowerCase();
-    if (searchValue) {
-        const filteredShoes = shoes.filter(
-            s => s.brand.toLowerCase().includes(searchValue) || s.color.toLowerCase().includes(searchValue)
-        );
-        renderShoes(filteredShoes);
-    } else renderShoes();
-
-    saveToLocalStorage();
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    await loadShoes();
 });
 
-// ------------------ OTHER BUTTONS ------------------
-sortAscBtn.addEventListener("click", () => { shoes.sort((a, b) => a.price - b.price); renderShoes(); });
-sortDescBtn.addEventListener("click", () => { shoes.sort((a, b) => b.price - a.price); renderShoes(); });
-const modalTotal = document.getElementById("modaltotal");
-const totalValue = document.getElementById("totalValue");
-const backTotal = document.getElementById("backTotal");
+// ------------------ SORT ------------------
+sortAscBtn.addEventListener("click", () => {
+    const sorted = [...shoes].sort((a, b) => a.price - b.price);
+    renderShoes(sorted);
+});
+sortDescBtn.addEventListener("click", () => {
+    const sorted = [...shoes].sort((a, b) => b.price - a.price);
+    renderShoes(sorted);
+});
 
+// ------------------ TOTAL PRICE ------------------
 totalPriceBtn.addEventListener("click", () => {
-    const total = lastRendered.reduce(
-        (sum, shoe) => sum + (isNaN(shoe.price) ? 0 : shoe.price),
-        0
-    );
+    const total = lastRendered.reduce((sum, s) => sum + (isNaN(s.price) ? 0 : s.price), 0);
     totalValue.textContent = `${total} грн`;
     modalTotal.style.display = "block";
 });
+backTotal.addEventListener("click", () => (modalTotal.style.display = "none"));
+window.addEventListener("click", (e) => { if (e.target === modalTotal) modalTotal.style.display = "none"; });
 
-backTotal.addEventListener("click", () => {
-    modalTotal.style.display = "none";
-});
-
-window.addEventListener("click", e => {
-    if (e.target === modalTotal) modalTotal.style.display = "none";
-});
-
-searchInput.addEventListener("input", e => {
+// ------------------ SEARCH ------------------
+searchInput.addEventListener("input", (e) => {
     const searchValue = e.target.value.toLowerCase();
-    const filteredShoes = shoes.filter(s => s.brand.toLowerCase().includes(searchValue) || s.color.toLowerCase().includes(searchValue));
-    renderShoes(filteredShoes);
+    const filtered = shoes.filter(
+        (s) =>
+            s.brand.toLowerCase().includes(searchValue) ||
+            s.color.toLowerCase().includes(searchValue)
+    );
+    renderShoes(filtered);
 });
 
-
-
-function saveToLocalStorage() {
-    localStorage.setItem("shoes", JSON.stringify(shoes));
-}
-
-// ------------------ MODAL VALIDATION ------------------
+// ------------------ VALIDATION ------------------
 function blockDigits(input) {
     input.addEventListener("keydown", (e) => {
         if (/\d/.test(e.key)) {
@@ -203,13 +199,11 @@ function blockLetters(input) {
     });
 }
 
-
 window.addEventListener("DOMContentLoaded", () => {
     const brandInput = document.getElementById("brand");
     const colorInput = document.getElementById("color");
     const priceInput = document.getElementById("price");
     const sizeInput = document.getElementById("size");
-
     if (brandInput) blockDigits(brandInput);
     if (colorInput) blockDigits(colorInput);
     if (priceInput) blockLetters(priceInput);
