@@ -1,18 +1,29 @@
 import React from "react";
-import Header from "./components/Header";
-import Navigation from "./components/Navigation";
-import Home from "./components/Home";
-import Footer from "./components/Footer";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home.jsx";
+import Catalog from "./components/Catalog.jsx";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
     return (
-        <div className="app">
-            <Header />
-            <Navigation />
-            <Home />
-            <Footer />
-        </div>
+        <Router>
+            <div className="app">
+                <Header />
+
+                <nav className="nav-links">
+                    <Link to="/">Home</Link>
+                    <Link to="/catalog">Catalog</Link>
+                </nav>
+
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                </Routes>
+
+                <Footer />
+            </div>
+        </Router>
     );
 }
 

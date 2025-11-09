@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
+import '../App.css';
+
 
 const Home = () => {
     const [visibleCount, setVisibleCount] = useState(4);

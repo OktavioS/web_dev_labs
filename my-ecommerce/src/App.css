@@ -153,3 +153,23 @@ body {
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: #222;
+  padding: 15px 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;
+}
