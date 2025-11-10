@@ -1,0 +1,23 @@
+.catalog-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 30px;
+}
+
+.card-wrapper {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+
+.card-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.card-wrapper.selected {
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    transform: scale(1.04);
+}

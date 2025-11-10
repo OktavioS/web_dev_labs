@@ -23,6 +23,7 @@ const Home = () => {
         <div className="home-container">
             <h1 className="home-title">Our Shoes Collection</h1>
 
+
             <div className="product-list">
                 {shoesData.slice(0, visibleCount).map((product) => (
                     <ProductCard

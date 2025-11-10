@@ -4,6 +4,7 @@ import Home from "./components/Home.jsx";
 import Catalog from "./components/Catalog.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import '../src/components/styles/button.css';
 
 function App() {
     return (

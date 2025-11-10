@@ -5,7 +5,6 @@ function Header() {
         <header className="header">
             <h1>My Shoe Store</h1>
             <p>Your best footwear in one place</p>
-            <div><a href='#'>Hello world</a></div>
         </header>
     );
 }
