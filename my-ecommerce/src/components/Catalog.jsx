@@ -1,41 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ShopContext } from "../components/ShopContext.jsx";
 import ProductCard from "./ProductCard.jsx";
-import './styles/catalog.css';
+import "./styles/catalog.css";
 
 function Catalog() {
-    const [selectedId, setSelectedId] = useState(null);
-    // Дані про товари
-    const shoesData = [
-        { id: 1, brand: "Nike Air Zoom", price: 120 },
-        { id: 2, brand: "Adidas Ultraboost", price: 150 },
-        { id: 3, brand: "Puma Rider", price: 100 },
-        { id: 4, brand: "Reebok Classic", price: 90 },
-        { id: 5, brand: "New Balance 574", price: 130 },
-        { id: 6, brand: "Asics Gel", price: 110 },
-    ];
+    const { shoesData } = useContext(ShopContext);
+    const [searchTerm, setSearchTerm] = useState("");
 
-
-    const handleSelect = (id) => {
-        setSelectedId((prev) => (prev === id ? null : id)); // знімає виділення, якщо клік вдруге
-    };
+    const filteredShoes = shoesData.filter(
+        (item) =>
+            item.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.color.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="catalog-container">
-            <div className="button-row">
-                <button className="primaryButton">Купити</button>
-                <button className="secondaryButton">Детальніше</button>
-                <button className="dangerButton">Видалити</button>
-            </div>
+            <input
+                type="text"
+                placeholder="Search by name or color..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+            />
 
             <div className="cards-grid">
-                {shoesData.map((p) => (
-                    <div
+                {filteredShoes.map((p) => (
+                    <ProductCard
                         key={p.id}
-                        onClick={() => handleSelect(p.id)}
-                        className={`card-wrapper ${selectedId === p.id ? "selected" : ""}`}
-                    >
-                        <ProductCard brand={p.brand} price={p.price} />
-                    </div>
+                        id={p.id}
+                        brand={p.brand}
+                        price={p.price}
+                        color={p.color}
+                        image={p.image}
+                    />
                 ))}
             </div>
         </div>

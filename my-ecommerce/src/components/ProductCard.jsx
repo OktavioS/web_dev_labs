@@ -1,16 +1,21 @@
 import React from "react";
-import imagep from '../snkr.jpg';
+import { useNavigate } from "react-router-dom";
+import "./styles/catalog.css";
 
+const ProductCard = ({ id, brand, price, image, color }) => {
+    const navigate = useNavigate();
 
-function ProductCard({ brand, price }) {
     return (
-        <div className="product-card" style={{ cursor: "pointer" }}>
-            <img src={require("../snkr.jpg")} alt={brand} />
+        <div className="product-card">
+            <img src={image} alt={brand} className="product-image" />
             <h3>{brand}</h3>
+            <p>{color}</p>
             <p>${price}</p>
-            <button disabled>View</button>
+            <button onClick={() => navigate(`/item/${id}`)} className="view-btn">
+                View
+            </button>
         </div>
     );
-}
+};
 
 export default ProductCard;
