@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "./UI/PrimaryButton.jsx";
 import "./styles/catalog.css";
 
 const ProductCard = ({ id, brand, price, image, color }) => {
@@ -11,9 +12,9 @@ const ProductCard = ({ id, brand, price, image, color }) => {
             <h3>{brand}</h3>
             <p>{color}</p>
             <p>${price}</p>
-            <button onClick={() => navigate(`/item/${id}`)} className="view-btn">
+            <PrimaryButton onClick={() => navigate(`/item/${id}`)}>
                 View
-            </button>
+            </PrimaryButton>
         </div>
     );
 };

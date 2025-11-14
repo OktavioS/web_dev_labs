@@ -1,0 +1,13 @@
+.custom-select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.custom-select:hover {
+    border-color: #007bff;
+}

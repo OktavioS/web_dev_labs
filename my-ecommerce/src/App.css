@@ -66,6 +66,8 @@ body {
 
 .product-card:hover {
   transform: scale(1.05);
+  border: 1px solid #b4d8ff;
+  box-shadow: 1px 1px 11px #4aa1ff;
 }
 
 .product-card img {
