@@ -1,9 +1,13 @@
 import React from "react";
 import "../styles/primarybutton.css";
 
-function PrimaryButton({ children, onClick, type = "button" }) {
+function PrimaryButton({ children, onClick, type = "button", className = "" }) {
     return (
-        <button className="primary-btn" onClick={onClick} type={type}>
+        <button
+            className={`primary-btn ${className}`}
+            onClick={onClick}
+            type={type}
+        >
             {children}
         </button>
     );

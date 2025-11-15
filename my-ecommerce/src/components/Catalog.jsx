@@ -4,6 +4,8 @@ import ProductCard from "./ProductCard.jsx";
 import "./styles/catalog.css";
 import "./styles/button.css";
 
+import Select from "../components/UI/Select.jsx";   // ← ДОДАНО
+
 function Catalog() {
     const { shoesData } = useContext(ShopContext);
 
@@ -31,6 +33,14 @@ function Catalog() {
         }
     });
 
+    const sortOptions = [
+        { value: "", label: "Sort..." },
+        { value: "priceAsc", label: "Price up" },
+        { value: "priceDesc", label: "Price down" },
+        { value: "colorAsc", label: "Color A - Z" },
+        { value: "colorDesc", label: "Color Z - A" }
+    ];
+
     return (
         <div className="catalog-container">
 
@@ -43,17 +53,11 @@ function Catalog() {
                     className="search-input"
                 />
 
-                <select
-                    className="sort-select"
+                <Select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                >
-                    <option value="">Sort...</option>
-                    <option value="priceAsc">Price up</option>
-                    <option value="priceDesc">Price down</option>
-                    <option value="colorAsc">Color A - Z</option>
-                    <option value="colorDesc">Color Z - A</option>
-                </select>
+                    options={sortOptions}
+                />
             </div>
 
             <div className="cards-grid">
