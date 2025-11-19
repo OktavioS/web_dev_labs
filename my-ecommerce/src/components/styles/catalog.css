@@ -35,6 +35,9 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .product-card {
@@ -73,3 +76,8 @@
 .product-card button:hover {
     background-color: #0097a7;
 }
+.cards-grid.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+

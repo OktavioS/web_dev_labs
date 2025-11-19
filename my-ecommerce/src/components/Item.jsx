@@ -1,33 +1,54 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ShopContext } from "../components/ShopContext.jsx";
-import PrimaryButton from "../components/UI/PrimaryButton.jsx";
+import Loader from "./Loader.jsx";
 import "./styles/itempage.css";
 
-const Item = () => {
+function Item() {
     const { id } = useParams();
-    const { shoesData } = useContext(ShopContext);
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [fadeIn, setFadeIn] = useState(false);
 
-    const product = shoesData.find((item) => item.id === parseInt(id));
+    useEffect(() => {
+        setLoading(true);
 
-    if (!product) return <h2>Item not found</h2>;
+        const fetchProduct = async () => {
+            try {
+                const res = await fetch(`http://localhost:3000/api/shoes/${id}`);
+                const data = await res.json();
+
+                setTimeout(() => {
+                    setProduct(data);
+                    setLoading(false);
+
+                    setTimeout(() => setFadeIn(true), 50);
+                }, 1000);
+            } catch (err) {
+                console.error(err);
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [id]);
+
+    if (loading) return <Loader />;
+    if (!product) return <div>Product not found</div>;
 
     return (
-        <div className="item-page">
-            <img src={product.image} alt={product.brand} className="item-image" />
+        <div className={`item-page ${fadeIn ? "fade-in" : ""}`}>
+            <img className="item-image" src={product.image} alt={product.brand} />
 
             <div className="item-header">
-                <h2>{product.brand}</h2>
-                <span className="item-price">${product.price}</span>
+                <h1 className="item-title">{product.brand}</h1>
+                <p className="item-price">${product.price}</p>
             </div>
 
-            <PrimaryButton onClick={() => alert("Purchased!")}>
-                Buy Now
-            </PrimaryButton>
+            <button className="buy-btn">Buy Now</button>
 
             <p className="item-description">{product.description}</p>
         </div>
     );
-};
+}
 
 export default Item;
