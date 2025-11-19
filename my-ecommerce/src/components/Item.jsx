@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "./Loader.jsx";
+import axios from "axios";
 import "./styles/itempage.css";
 
 function Item() {
@@ -11,14 +12,14 @@ function Item() {
 
     useEffect(() => {
         setLoading(true);
+        setFadeIn(false);
 
         const fetchProduct = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/shoes/${id}`);
-                const data = await res.json();
+                const res = await axios.get(`http://localhost:3000/api/shoes/${id}`);
 
                 setTimeout(() => {
-                    setProduct(data);
+                    setProduct(res.data);
                     setLoading(false);
 
                     setTimeout(() => setFadeIn(true), 50);

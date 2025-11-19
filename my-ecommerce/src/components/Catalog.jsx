@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "./ProductCard.jsx";
 import Loader from "./Loader.jsx";
 import Select from "../components/UI/Select.jsx";
+import axios from "axios";
 
 import "./styles/catalog.css";
 import "./styles/button.css";
@@ -10,7 +11,6 @@ function Catalog() {
     const [shoes, setShoes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [fadeIn, setFadeIn] = useState(false);
-
     const [searchTerm, setSearchTerm] = useState("");
     const [sortBy, setSortBy] = useState("");
 
@@ -25,18 +25,17 @@ function Catalog() {
     const fetchShoes = async () => {
         setLoading(true);
         setFadeIn(false);
-
         try {
-            const params = new URLSearchParams();
-            if (searchTerm) params.append("search", searchTerm);
-            if (sortBy) params.append("sort", sortBy);
+            const params = {};
+            if (searchTerm) params.search = searchTerm;
+            if (sortBy) params.sort = sortBy;
 
-            const res = await fetch(`http://localhost:3000/api/shoes?${params.toString()}`);
-            const data = await res.json();
+            const res = await axios.get("http://localhost:3000/api/shoes", { params });
 
             setTimeout(() => {
-                setShoes(data);
+                setShoes(res.data);
                 setLoading(false);
+
                 setTimeout(() => setFadeIn(true), 50);
             }, 300);
         } catch (err) {
@@ -44,6 +43,10 @@ function Catalog() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        fetchShoes();
+    }, []);
 
     useEffect(() => {
         fetchShoes();
