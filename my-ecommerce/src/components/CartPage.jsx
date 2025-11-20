@@ -4,13 +4,15 @@ import { removeFromCart, updateQuantity } from "../redux/actions";
 import "./styles/cart.css";
 
 const Cart = () => {
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
-    const totalPrice = cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+    const totalPrice = cart.reduce(
+        (sum, item) => sum + item.price * (item.quantity || 1),
+        0
+    );
 
     const handleRemove = (id) => dispatch(removeFromCart(id));
-    const handleQuantityChange = (id, amount) => dispatch(updateQuantity(id, amount));
 
     return (
         <div className="cart-page">
@@ -20,32 +22,70 @@ const Cart = () => {
             ) : (
                 <>
                     <div className="cart-list">
-                        {cart.map(item => (
+                        {cart.map((item) => (
                             <div className="cart-item" key={item.id}>
+                                {/* Ліва частина: зображення та назва */}
                                 <div className="left-info">
-                                    <img src={item.image} alt={item.brand} className="cart-img" />
+                                    <img
+                                        src={item.image}
+                                        alt={item.brand}
+                                        className="cart-img"
+                                    />
                                     <div className="item-text">
                                         <h3>{item.brand}</h3>
                                         <p>{item.color}</p>
                                     </div>
                                 </div>
 
+                                {/* Ціна по центру */}
                                 <p className="price">${item.price}</p>
 
+                                {/* Лічильник */}
                                 <div className="quantity-box">
-                                    <button onClick={() => dispatch(updateQuantity(item.id, item.quantity - 1))}>-</button>
+                                    <button
+                                        onClick={() =>
+                                            item.quantity > 1 &&
+                                            dispatch(
+                                                updateQuantity(
+                                                    item.id,
+                                                    item.quantity - 1
+                                                )
+                                            )
+                                        }
+                                    >
+                                        -
+                                    </button>
                                     <span>{item.quantity}</span>
-                                    <button onClick={() => dispatch(updateQuantity(item.id, item.quantity + 1))}>+</button>
+                                    <button
+                                        onClick={() =>
+                                            dispatch(
+                                                updateQuantity(
+                                                    item.id,
+                                                    item.quantity + 1
+                                                )
+                                            )
+                                        }
+                                    >
+                                        +
+                                    </button>
                                 </div>
 
-
-                                <button className="dangerButton" onClick={() => handleRemove(item.id)}>X</button>
+                                {/* Кнопка видалення */}
+                                <button
+                                    className="dangerButton"
+                                    onClick={() => handleRemove(item.id)}
+                                >
+                                    X
+                                </button>
                             </div>
                         ))}
                     </div>
 
+                    {/* Підсумок */}
                     <div className="cart-summary">
-                        <p className="total-text">Total: ${totalPrice.toFixed(2)}</p>
+                        <p className="total-text">
+                            Total: ${totalPrice.toFixed(2)}
+                        </p>
                         <button className="checkout-btn">Checkout</button>
                     </div>
                 </>
