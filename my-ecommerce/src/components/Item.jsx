@@ -4,11 +4,17 @@ import Loader from "./Loader.jsx";
 import axios from "axios";
 import "./styles/itempage.css";
 
+// REDUX
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/actions";
+
 function Item() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [fadeIn, setFadeIn] = useState(false);
+
+    const dispatch = useDispatch(); // <-- ADD
 
     useEffect(() => {
         setLoading(true);
@@ -45,7 +51,13 @@ function Item() {
                 <p className="item-price">${product.price}</p>
             </div>
 
-            <button className="buy-btn">Buy Now</button>
+            {/* BUTTON UPDATED: dispatch to Redux */}
+            <button
+                className="buy-btn"
+                onClick={() => dispatch(addToCart(product))}
+            >
+                Add to cart
+            </button>
 
             <p className="item-description">{product.description}</p>
         </div>

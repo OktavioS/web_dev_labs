@@ -1,0 +1,138 @@
+.cart-page {
+    padding: 20px;
+}
+
+.cart-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 1fr 120px 140px 60px;
+    align-items: center;
+
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.08);
+    gap: 20px;
+
+    /* Анімація появи */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.3s forwards;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover ефект на картку */
+.cart-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.left-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.item-text h3 {
+    margin: 0;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* QUANTITY COUNTER */
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    background: rgb(235, 235, 235);
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.quantity-box button {
+    border: none;
+    background: #a0a0a0;
+    padding: 5px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.quantity-box button:hover {
+    background: #656565;
+}
+
+.quantity-box span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* CHECKOUT BOX */
+.cart-summary {
+    margin-top: 125px;
+    margin-bottom: 45px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-text {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.checkout-btn {
+    background-color: black;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #00264d;
+}
+
+.checkout-btn:active {
+    transform: scale(0.95);
+}
+
+.empty-cart {
+    font-size: 20px;
+    margin-top: 50px;
+    text-align: center;
+    color: #666;
+}
